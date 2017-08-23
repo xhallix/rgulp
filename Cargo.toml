@@ -1,0 +1,6 @@
+[package]
+name = "rgulp"
+version = "0.1.0"
+authors = ["challmann <christoph.hallmann@arvato.com>"]
+
+[dependencies]
