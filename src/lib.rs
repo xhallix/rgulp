@@ -12,15 +12,22 @@ mod tests {
                             color: red;
                         } ";
         let fixture = "p{text-align:center;color:red;}";
-        let css = builder::Css{ content : css_string.to_string() };
-        assert_eq!(fixture, css.minify());
+        assert_eq!(fixture, builder::minify(content));
     }
 
      #[test]
     fn builder_can_save_to_file() {
         let css_string = String::from("p{text-align:center;color:red;}");
         let string_to_save = String::from("this should be saved");
-        builder::Css::save_result_to_file(String::from("./output/text.txt"), css_string);
+        builder::save_result_to_file(String::from("./output/text.txt"), css_string);
+    }
+
+    #[test]
+    fn builder_can_concatenate_files() {
+        let file_one : String = String::from("./mockup/app.css");
+        let file_two : String = String::from("./mockup/home.css");
+        let files_to_concat = vec![file_one, file_two];
+        builder::concat_files(files_to_concat, String::from("output/app.concat.min.css"))
     }
 }
 
