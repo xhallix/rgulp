@@ -1,4 +1,5 @@
 pub mod builder;
+pub mod config;
 
 #[cfg(test)]
 mod tests {
@@ -12,7 +13,7 @@ mod tests {
                             color: red;
                         } ";
         let fixture = "p{text-align:center;color:red;}";
-        assert_eq!(fixture, builder::minify(content));
+        assert_eq!(fixture, builder::minify( &String::from( css_string ) )) ;
     }
 
      #[test]

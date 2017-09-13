@@ -1,0 +1,10 @@
+{
+	"css": {
+		"files": ["mockup/app.css"],
+		"out": "output/app.concat.min.css"
+	},
+	"js": {
+		"files": ["mockup/app.js"],
+		"out": "output/app.min.js"
+	}
+}
