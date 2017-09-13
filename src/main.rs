@@ -7,7 +7,6 @@ use rgulp::config::Config;
 use std::fs::File;
 use std::io::prelude::*;
 
-
 fn main() {
 
     println!("Rust gulp");
@@ -15,6 +14,7 @@ fn main() {
     let css_config = &json_config["css"];
     let js_config = &json_config["jss"];
 
+    // Todo - this could be done in a concurrent way
     if *css_config != Value::Null {
         let css_files = &css_config["files"];
         let out_file = &css_config["out"];
@@ -24,12 +24,13 @@ fn main() {
     }
 
     if *js_config != Value::Null {
-        js_task("mockup/app.js");
+        let js_files = &css_config["files"];
+        let out_file = &js_config["out"];
+        for file in js_files.as_array().unwrap() {
+            js_task(file.as_str().unwrap(), out_file.as_str().unwrap());
+        }      
     }
-
-
 }
-
 
 ///
 /// Retrieves all content from the specified file
@@ -53,8 +54,8 @@ fn css_task(file_name : &str, out_file : &str) {
 ///
 /// Runs the tasks for JS 
 ///
-fn js_task(file_name : &str) {
+fn js_task(file_name : &str, out_file : &str) {
     let content = get_content_from_file(file_name);
     let minified_js = builder::minify(&content);
-    builder::save_result_to_file(String::from("output/app.min.js"), minified_js); 
+    builder::save_result_to_file(String::from(out_file), minified_js); 
 } 
